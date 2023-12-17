@@ -1,9 +1,8 @@
-import "./App.css";
-import Rsvp from "./rsvp";
+import Rsvp from "./Rsvp";
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Rsvp />
     </div>
   );
