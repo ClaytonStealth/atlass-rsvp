@@ -13,7 +13,7 @@ import {
 
 export default function Rsvp(props) {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [rsvpMessage, setRsvpMessage] = useState("");
   return (
     <div className='relative w-full h-screen bg-zinc-900/90'>
@@ -56,7 +56,7 @@ export default function Rsvp(props) {
               className='border relative bg-gray-100 p-2 rounded-lg dark:bg-zinc-500 dark:text-white'
               type='text'
               onChange={(e) => {
-                setPassword(e.target.value);
+                setName(e.target.value);
               }}
             />
           </div>
