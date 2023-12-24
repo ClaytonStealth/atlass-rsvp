@@ -1,9 +1,15 @@
-import Rsvp from "./Rsvp";
+import Contact from "./Contact";
+import TopBar from "./TopBar";
+import Rsvp from "./rsvp";
+import ThankYou from "./ThankYou";
 
 function App() {
   return (
-    <div className='App'>
+    <div>
+      <TopBar />
+      <Contact />
       <Rsvp />
+      <ThankYou />
     </div>
   );
 }
