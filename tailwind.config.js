@@ -4,7 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        newsreader: ["Newsreader", "josefin sans"],
+        newsreader: ["Newsreader"],
+        josefin_sans: ["Josefin sans"]
       },
     },
   },

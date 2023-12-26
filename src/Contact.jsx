@@ -13,30 +13,32 @@ const Contact = () => {
     >
       <div className="grid md:grid-cols-2 w-full">
         <div className="flex flex-col justify-around items-center">
-          <p className="text-center text-sm font-semibold text-gray-900">
+          <p className="text-center text-sm font-josefin_sans font-bold text-black">
             Thur, Feb 1st | Macallan Headquarters NYC
           </p>
-          <h2 className="text-center text-4xl italic font-bold font-newsreader text-gray-700">
+          <h2 className="text-center text-4xl italic font-bold font-newsreader text-black">
             CHEERS AND CHAMPIONS:{" "}
           </h2>
-          <p className="text-center text-xl font-semibold text-gray-700 py-2">
+          <p className="text-center text-xl font-josefin_sans font-bold text-black py-2">
             A NEW YEAR CELEBRATION WITH YOUNG PROFESSIONALS
           </p>
-          <button className="p-2 px-4 rounded-md bg-gray-900 text-white">
-            Click To RSVP
+            <Link to="rsvp" smooth={true} duration={1000}>
+          <button className="py-6 px-12 rounded-md bg-black text-white">
+              Click To RSVP
           </button>
+            </Link>
         </div>
 
         <div>
           <div className="flex flex-col justify-center items-center">
             <img src={AtlasNoBack} alt="/" className="w-[200px] h-[200px]" />
-            <p className=" font-newsreader">
+            <p className=" font-josefin_sans font-semibold">
               PRESENTED BY:{" "}
-              <span className=" font-newsreader">ATLAS SPORTS</span>
+              <span className=" font-josefin_sans font-semibold">ATLAS SPORTS</span>
             </p>
-            <p>FEATURING:</p>
+            <p className="font-josefin_sans font-semibold">FEATURING:</p>
             <div className="flex justify-between items-center my-4 sm:flex-wrap overflow-x-auto">
-              <img src={ww} alt="/" className="h-[80px] w-[120px] mr-2" />
+              <img src={ww} alt="/" className="h-[80px] w-[120px] mr-4" />
               <img src={macallen} alt="/" className="h-[70px] w-[150px] mx-4" />
               <img src={glen} alt="/" className="h-[70px] w-[150px]" />
             </div>

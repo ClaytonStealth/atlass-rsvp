@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-scroll";
 
-export default function Rsvp() {
+export default function Rsvp(props) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [affiliation, setAffiliation] = useState("");
@@ -64,16 +65,19 @@ export default function Rsvp() {
             }}
           />
         </div>
+          <Link to="thank-you" smooth={true} duration={1000}>
         <button
           className="w-full py-3 mt-8 bg-gray-950  relative text-gray-200 rounded-lg"
-          onClick={() => {
-            setRsvpMessage(
+          onClick={(e) => {
+            e.preventDefault();
+            props.setTyMessage(
               `Thank you ${name} for RSVPing! We will send you an email with more information soon.`
             );
           }}
         >
-          RSVP
+            RSVP
         </button>
+          </Link>
       </form>
     </div>
   );
