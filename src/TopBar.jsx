@@ -10,7 +10,6 @@ const TopBar = () => {
           alt='/'
           className='text-white mr-2 h-[40px] w-[40px] sm:h-[48px] sm:w-[48px]'
         />
-        <h1 className='text-xl font-bold text-black sm:text-2xl'>ATLAS</h1>
       </div>
     </div>
   );

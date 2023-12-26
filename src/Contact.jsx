@@ -12,7 +12,7 @@ const Contact = () => {
       className=' m-auto w-full flex flex-col justify-center items-center pt-[148px] sm:pt-16 h-screen bg-fixed bg-gradient-to-b from-white to-black'
     >
       <div className='grid md:grid-cols-2 w-full'>
-        <div className='flex flex-col justify-around items-center text-center'>
+        <div className='flex flex-col gap-y-10 justify-end items-center text-center'>
           <p className='text-center text-sm font-josefin_sans font-bold text-black mb-4'>
             Thur, Feb 1st | Macallan Headquarters NYC
           </p>
