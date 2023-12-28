@@ -9,7 +9,9 @@ const ThankYou = (props) => {
       <h1 className='text-4xl font-newsreader italic text-white text-center'>
         {props.tyMessage}
       </h1>
-      <h1> </h1>
+      <h1 className='text-4xl invisible font-newsreader italic text-white text-center'>
+        hidden{" "}
+      </h1>
       <h1 className='text-4xl font-newsreader italic text-white text-center'>
         {props.atlasMsg}
       </h1>

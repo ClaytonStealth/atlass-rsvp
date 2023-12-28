@@ -14,7 +14,7 @@ const Contact = () => {
       <div className='grid md:grid-cols-2 w-full'>
         <div className='flex flex-col sm:gap-y-10 justify-end items-center text-center'>
           <p className='text-center text-sm font-josefin_sans font-bold text-black mb-4'>
-            Thur, Feb 1st | Macallan Headquarters NYC
+            Thur, Feb 1st | The Macallan Headquarters NYC
           </p>
           <h2 className='text-center text-4xl italic font-bold font-newsreader text-black'>
             CHEERS AND CHAMPIONS:{" "}
