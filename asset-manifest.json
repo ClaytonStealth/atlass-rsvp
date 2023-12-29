@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/atlass-rsvp/static/css/main.09ffeb95.css",
-    "main.js": "/atlass-rsvp/static/js/main.01966c50.js",
+    "main.css": "/atlass-rsvp/static/css/main.d55c515c.css",
+    "main.js": "/atlass-rsvp/static/js/main.70e28d23.js",
     "static/media/sportlogo.png": "/atlass-rsvp/static/media/sportlogo.d3d0ece98f44f4d830f9.png",
     "static/media/wwNoBack.png": "/atlass-rsvp/static/media/wwNoBack.071871ae3f441cc6f8cb.png",
     "index.html": "/atlass-rsvp/index.html",
-    "main.09ffeb95.css.map": "/atlass-rsvp/static/css/main.09ffeb95.css.map",
-    "main.01966c50.js.map": "/atlass-rsvp/static/js/main.01966c50.js.map"
+    "main.d55c515c.css.map": "/atlass-rsvp/static/css/main.d55c515c.css.map",
+    "main.70e28d23.js.map": "/atlass-rsvp/static/js/main.70e28d23.js.map"
   },
   "entrypoints": [
-    "static/css/main.09ffeb95.css",
-    "static/js/main.01966c50.js"
+    "static/css/main.d55c515c.css",
+    "static/js/main.70e28d23.js"
   ]
 }
