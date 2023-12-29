@@ -37,22 +37,22 @@ export default function Rsvp(props) {
     e.preventDefault();
     console.log("Sending Email");
 
-    // emailjs
-    //   .sendForm(
-    //     process.env.REACT_APP_YOUR_SERVICE_ID,
-    //     process.env.REACT_APP_YOUR_TEMPLATE_ID,
-    //     form.current,
-    //     process.env.REACT_APP_YOUR_PUBLIC_KEY
-    //   )
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //       console.log("Success");
-    //     },
-    //     (error) => {
-    //       console.log(error.text);
-    //     }
-    //   );
+    emailjs
+      .sendForm(
+        process.env.REACT_APP_YOUR_SERVICE_ID,
+        process.env.REACT_APP_YOUR_TEMPLATE_ID,
+        form.current,
+        process.env.REACT_APP_YOUR_PUBLIC_KEY
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("Success");
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   return (
