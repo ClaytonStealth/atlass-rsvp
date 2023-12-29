@@ -12,15 +12,30 @@ export default function Rsvp(props) {
     user_affiliation: "",
   });
 
+  const [touched, setTouched] = useState({
+    user_fName: false,
+    user_lName: false,
+    user_email: false,
+    user_affiliation: false,
+  });
+
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
+
+    setTouched((prevTouched) => ({
+      ...prevTouched,
+      [name]: true,
+    }));
+
     setRsvpState({ ...rsvpState, [name]: value });
   };
 
-  console.log(validator({rsvpState}));
+  const isValidObj = validator(rsvpState);
+  console.log(isValidObj);
 
   const sendEmail = (e) => {
     e.preventDefault();
+    console.log("Sending Email");
 
     // emailjs
     //   .sendForm(
@@ -52,7 +67,13 @@ export default function Rsvp(props) {
         onSubmit={sendEmail}
         className='max-w-[400px] w-full mx-auto shadow-2xl p-8 rounded-lg'
       >
-        <div className='flex flex-col mb-4 '>
+        <div
+          className={`flex flex-col mb-4 ${
+            touched.user_fName && isValidObj.user_fName.error
+              ? "animate-shake"
+              : ""
+          }`}
+        >
           <input
             className='bg-gray-200 p-2 rounded-2xl shadow-2xl '
             type='text'
@@ -60,8 +81,19 @@ export default function Rsvp(props) {
             name='user_fName'
             onChange={onChangeHandler}
           />
+          {touched.user_fName && isValidObj.user_fName.error && (
+            <p className='text-red-700 text-xs font-bold mb-1'>
+              Field Required
+            </p>
+          )}
         </div>
-        <div className='flex flex-col mb-4 '>
+        <div
+          className={`flex flex-col mb-4 ${
+            touched.user_lName && isValidObj.user_lName.error
+              ? "animate-shake"
+              : ""
+          }`}
+        >
           <input
             className='bg-gray-200 p-2 rounded-2xl shadow-2xl '
             type='text'
@@ -69,8 +101,19 @@ export default function Rsvp(props) {
             name='user_lName'
             onChange={onChangeHandler}
           />
+          {touched.user_lName && isValidObj.user_lName.error && (
+            <p className='text-red-700 text-xs font-bold mb-1'>
+              Field Required
+            </p>
+          )}
         </div>
-        <div className='flex flex-col mb-4'>
+        <div
+          className={`flex flex-col mb-4 ${
+            touched.user_email && isValidObj.user_email.error
+              ? "animate-shake"
+              : ""
+          }`}
+        >
           <input
             className='bg-gray-200 p-2 rounded-2xl shadow-2xl'
             type='email'
@@ -78,12 +121,17 @@ export default function Rsvp(props) {
             name='user_email'
             onChange={onChangeHandler}
           />
+          {touched.user_email && isValidObj.user_email.error && (
+            <p className='text-red-700 text-xs font-bold mb-1'>
+              Field Required
+            </p>
+          )}
         </div>
         <div className='flex flex-col'>
           <input
             className='p-2 rounded-2xl shadow-2xl bg-gray-200'
             type='text'
-            placeholder='Affiliation'
+            placeholder='Company Affiliation (Optional)'
             name='user_affiliation'
             onChange={onChangeHandler}
           />
@@ -92,13 +140,23 @@ export default function Rsvp(props) {
           <button
             type='submit'
             className='w-full py-3 mt-8 bg-black text-white rounded-md'
+            disabled={
+              isValidObj.user_fName.error ||
+              isValidObj.user_lName.error ||
+              isValidObj.user_email.error
+            }
             onClick={(e) => {
-              e.preventDefault();
-              props.setTyMessage(`Thank you ${rsvpState.user_fName}!`);
-              props.setAtlasMsg(
-                "A member of Atlas Sports will contact you with more details shortly."
-              );
-              sendEmail(e);
+              if (
+                !isValidObj.user_fName.error &&
+                !isValidObj.user_lName.error &&
+                !isValidObj.user_email.error
+              ) {
+                props.setTyMessage(`Thank you ${rsvpState.user_fName}!`);
+                props.setAtlasMsg(
+                  "A member of Atlas Sports will contact you with more details shortly."
+                );
+                sendEmail(e);
+              }
             }}
           >
             RSVP NOW
