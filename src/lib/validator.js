@@ -15,6 +15,12 @@ const checker = (key, element) => {
           message: "cannot contain spaces",
         };
       }
+      if (/[\d!@#$%^&*()_+={}[\]:;<>,.?~\\/-]/.test(element)) {
+        return {
+          error: true,
+          message: "cannot contain numbers or special characters",
+        };
+      }
       return {
         error: false,
         message: "",
@@ -30,6 +36,12 @@ const checker = (key, element) => {
         return {
           error: true,
           message: "cannot contain spaces",
+        };
+      }
+      if (/[\d!@#$%^&*()_+={}[\]:;<>,.?~\\/-]/.test(element)) {
+        return {
+          error: true,
+          message: "cannot contain numbers or special characters",
         };
       }
       return {
@@ -49,12 +61,19 @@ const checker = (key, element) => {
           message: "cannot contain spaces",
         };
       }
-      if (!element.includes("@") || !element.includes(".")) {
+      const emailRegex = /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(element)) {
         return {
           error: true,
-          message: "Not a Valid email",
+          message: "Not a valid email",
         };
       }
+      // if (!element.includes("@") || !element.includes(".")) {
+      //   return {
+      //     error: true,
+      //     message: "Not a Valid email",
+      //   };
+      // }
 
       return {
         error: false,
