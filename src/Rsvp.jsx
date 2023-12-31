@@ -39,10 +39,10 @@ export default function Rsvp(props) {
 
     emailjs
       .sendForm(
-        process.env.REACT_APP_YOUR_SERVICE_ID,
-        process.env.REACT_APP_YOUR_TEMPLATE_ID,
+        "service_chwkmbo",
+        "template_9p2imej",
         form.current,
-        process.env.REACT_APP_YOUR_PUBLIC_KEY
+        "NHoQwlFQpc2euGO3O"
       )
       .then(
         (result) => {
