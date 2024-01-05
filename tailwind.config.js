@@ -10,8 +10,8 @@ module.exports = {
       keyframes: {
         shake: {
           "0%, 100%": { transform: "translateX(0)" },
-          "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-1px)" },
-          "20%, 40%, 60%, 80%": { transform: "translateX(1px)" },
+          "10%, 30%, 50%, 70%, 90%": { transform: "translateX(-3px)" },
+          "20%, 40%, 60%, 80%": { transform: "translateX(3px)" },
         },
         wiggle: {
           "0%, 100%": { transform: "rotate(-3deg)" },
@@ -19,19 +19,10 @@ module.exports = {
         },
       },
       animation: {
-        shake: "shake 0.5s ease-in-out infinite",
-        wiggle: "wiggle 0.5s ease-in-out infinite",
+        shake: "shake 0.5s ease-in-out 1",
+        wiggle: "wiggle 0.5s ease-in-out 3",
       },
     },
   },
   plugins: [],
 };
-/* wiggle: {
-          "0%, 100%": { transform: "rotate(-3deg)" },
-          "50%": { transform: "rotate(3deg)" },
-        },
-
-        animation: {
-        wiggle: "wiggle 0.5s ease-in-out infinite",
-      },
-         */

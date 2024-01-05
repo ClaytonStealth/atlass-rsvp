@@ -9,12 +9,6 @@ const checker = (key, element) => {
           message: "cannot be empty",
         };
       }
-      if (element.includes(" ")) {
-        return {
-          error: true,
-          message: "cannot contain spaces",
-        };
-      }
       if (/[\d!@#$%^&*()_+={}[\]:;<>,.?~\\/-]/.test(element)) {
         return {
           error: true,
@@ -30,12 +24,6 @@ const checker = (key, element) => {
         return {
           error: true,
           message: "cannot be empty",
-        };
-      }
-      if (element.includes(" ")) {
-        return {
-          error: true,
-          message: "cannot contain spaces",
         };
       }
       if (/[\d!@#$%^&*()_+={}[\]:;<>,.?~\\/-]/.test(element)) {

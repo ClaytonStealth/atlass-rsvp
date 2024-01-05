@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { Link } from "react-scroll";
 import { validator } from "./lib/validator";
@@ -19,6 +19,8 @@ export default function Rsvp(props) {
     user_affiliation: false,
   });
 
+  const [shakeFields, setShakeFields] = useState([]);
+
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
 
@@ -31,137 +33,150 @@ export default function Rsvp(props) {
   };
 
   const isValidObj = validator(rsvpState);
-  console.log(isValidObj);
 
   const sendEmail = (e) => {
     e.preventDefault();
     console.log("Sending Email");
 
-    emailjs
-      .sendForm(
-        "service_chwkmbo",
-        "template_9p2imej",
-        form.current,
-        "NHoQwlFQpc2euGO3O"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          console.log("Success");
-        },
-        (error) => {
-          console.log(error.text);
-        }
+    // emailjs
+    //   .sendForm(
+    //     "service_chwkmbo",
+    //     "template_9p2imej",
+    //     form.current,
+    //     "NHoQwlFQpc2euGO3O"
+    //   )
+    //   .then(
+    //     (result) => {
+    //       console.log(result.text);
+    //       console.log("Success");
+    //     },
+    //     (error) => {
+    //       console.log(error.text);
+    //     }
+    //   );
+  };
+
+  useEffect(() => {
+    if (shakeFields.length > 0) {
+      // Reset shake animation after a short delay
+      const timeoutId = setTimeout(() => {
+        setShakeFields([]);
+      }, 600); // Adjust the delay as needed
+
+      return () => clearTimeout(timeoutId);
+    }
+  }, [shakeFields]);
+
+  const handleButtonClick = (e) => {
+    // Check input validation
+    const fieldsToShake = [];
+    if (isValidObj.user_fName.error) fieldsToShake.push("user_fName");
+    if (isValidObj.user_lName.error) fieldsToShake.push("user_lName");
+    if (isValidObj.user_email.error) fieldsToShake.push("user_email");
+
+    if (fieldsToShake.length > 0) {
+      // Shake the specified fields
+      setShakeFields(fieldsToShake);
+    } else {
+      // No errors, proceed with sending email
+      props.setTyMessage(`Thank you ${rsvpState.user_fName}!`);
+      props.setAtlasMsg(
+        "A member of Atlas Sports will contact you with more details shortly."
       );
+      sendEmail(e);
+
+      // Scroll to the next page (assuming 'thank-you' is the target)
+      document.getElementById("thank-you").scrollIntoView({
+        behavior: "smooth",
+        duration: 1000,
+      });
+    }
+    e.preventDefault();
   };
 
   return (
     <div
-      method='post'
-      name='rsvp'
-      className=' w-full min-h-screen flex items-center justify-center bg-fixed bg-gradient-to-b from-white to-black'
+      method="post"
+      name="rsvp"
+      className=" w-full min-h-screen flex items-center justify-center bg-fixed bg-gradient-to-b from-white to-black"
     >
       {/* RSVP Form */}
       <form
         ref={form}
         onSubmit={sendEmail}
-        className='max-w-[400px] w-full mx-auto shadow-2xl p-8 rounded-lg'
+        className="max-w-[400px] w-full mx-auto shadow-2xl p-8 rounded-lg"
       >
         <div
           className={`flex flex-col mb-4 ${
-            touched.user_fName && isValidObj.user_fName.error
-              ? "animate-shake"
-              : ""
+            shakeFields.includes("user_fName") ? "animate-shake" : ""
           }`}
         >
           <input
-            className='bg-gray-200 p-2 rounded-2xl shadow-2xl '
-            type='text'
-            placeholder='First Name'
-            name='user_fName'
+            className="bg-gray-200 p-2 rounded-2xl shadow-2xl "
+            type="text"
+            placeholder="First Name"
+            name="user_fName"
             onChange={onChangeHandler}
           />
           {touched.user_fName && isValidObj.user_fName.error && (
-            <p className='text-red-700 text-xs font-bold mb-1'>
+            <p className="text-red-700 text-xs font-bold mb-1">
               Field Required
             </p>
           )}
         </div>
         <div
           className={`flex flex-col mb-4 ${
-            touched.user_lName && isValidObj.user_lName.error
-              ? "animate-shake"
-              : ""
+            shakeFields.includes("user_lName") ? "animate-shake" : ""
           }`}
         >
           <input
-            className='bg-gray-200 p-2 rounded-2xl shadow-2xl '
-            type='text'
-            placeholder='Last Name'
-            name='user_lName'
+            className="bg-gray-200 p-2 rounded-2xl shadow-2xl "
+            type="text"
+            placeholder="Last Name"
+            name="user_lName"
             onChange={onChangeHandler}
           />
           {touched.user_lName && isValidObj.user_lName.error && (
-            <p className='text-red-700 text-xs font-bold mb-1'>
+            <p className="text-red-700 text-xs font-bold mb-1">
               Field Required
             </p>
           )}
         </div>
         <div
           className={`flex flex-col mb-4 ${
-            touched.user_email && isValidObj.user_email.error
-              ? "animate-shake"
-              : ""
+            shakeFields.includes("user_email") ? "animate-shake" : ""
           }`}
         >
           <input
-            className='bg-gray-200 p-2 rounded-2xl shadow-2xl'
-            type='email'
-            placeholder='Email'
-            name='user_email'
+            className="bg-gray-200 p-2 rounded-2xl shadow-2xl"
+            type="email"
+            placeholder="Email"
+            name="user_email"
             onChange={onChangeHandler}
           />
           {touched.user_email && isValidObj.user_email.error && (
-            <p className='text-red-700 text-xs font-bold mb-1'>
+            <p className="text-red-700 text-xs font-bold mb-1">
               Field Required
             </p>
           )}
         </div>
-        <div className='flex flex-col'>
+        <div className="flex flex-col">
           <input
-            className='p-2 rounded-2xl shadow-2xl bg-gray-200'
-            type='text'
-            placeholder='Company Affiliation (Optional)'
-            name='user_affiliation'
+            className="p-2 rounded-2xl shadow-2xl bg-gray-200"
+            type="text"
+            placeholder="Company Affiliation (Optional)"
+            name="user_affiliation"
             onChange={onChangeHandler}
           />
         </div>
-        <Link to='thank-you' smooth={true} duration={1000}>
-          <button
-            type='submit'
-            className='w-full py-3 mt-8 bg-black text-white rounded-md'
-            disabled={
-              isValidObj.user_fName.error ||
-              isValidObj.user_lName.error ||
-              isValidObj.user_email.error
-            }
-            onClick={(e) => {
-              if (
-                !isValidObj.user_fName.error &&
-                !isValidObj.user_lName.error &&
-                !isValidObj.user_email.error
-              ) {
-                props.setTyMessage(`Thank you ${rsvpState.user_fName}!`);
-                props.setAtlasMsg(
-                  "A member of Atlas Sports will contact you with more details shortly."
-                );
-                sendEmail(e);
-              }
-            }}
-          >
-            RSVP NOW
-          </button>
-        </Link>
+
+        <button
+          type="submit"
+          className="w-full py-3 mt-8 bg-black text-white rounded-md"
+          onClick={handleButtonClick}
+        >
+          RSVP NOW
+        </button>
       </form>
     </div>
   );
