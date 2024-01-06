@@ -12,6 +12,8 @@ export default function Rsvp(props) {
     user_affiliation: "",
   });
 
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
   const [touched, setTouched] = useState({
     user_fName: false,
     user_lName: false,
@@ -20,6 +22,9 @@ export default function Rsvp(props) {
   });
 
   const [shakeFields, setShakeFields] = useState([]);
+  const [showEmailError, setShowEmailError] = useState(false);
+  const [showFNameError, setShowFNameError] = useState(false);
+  const [showLNameError, setShowLNameError] = useState(false);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -38,26 +43,31 @@ export default function Rsvp(props) {
     e.preventDefault();
     console.log("Sending Email");
 
-    // emailjs
-    //   .sendForm(
-    //     "service_chwkmbo",
-    //     "template_9p2imej",
-    //     form.current,
-    //     "NHoQwlFQpc2euGO3O"
-    //   )
-    //   .then(
-    //     (result) => {
-    //       console.log(result.text);
-    //       console.log("Success");
-    //     },
-    //     (error) => {
-    //       console.log(error.text);
-    //     }
-    //   );
+    emailjs
+      .sendForm(
+        "service_chwkmbo",
+        "template_9p2imej",
+        form.current,
+        "NHoQwlFQpc2euGO3O"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          console.log("Success");
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   useEffect(() => {
     if (shakeFields.length > 0) {
+      // Set error visibility for each field
+      setShowFNameError(shakeFields.includes("user_fName"));
+      setShowLNameError(shakeFields.includes("user_lName"));
+      setShowEmailError(shakeFields.includes("user_email"));
+
       // Reset shake animation after a short delay
       const timeoutId = setTimeout(() => {
         setShakeFields([]);
@@ -69,6 +79,7 @@ export default function Rsvp(props) {
 
   const handleButtonClick = (e) => {
     // Check input validation
+    setFormSubmitted(true);
     const fieldsToShake = [];
     if (isValidObj.user_fName.error) fieldsToShake.push("user_fName");
     if (isValidObj.user_lName.error) fieldsToShake.push("user_lName");
@@ -77,6 +88,11 @@ export default function Rsvp(props) {
     if (fieldsToShake.length > 0) {
       // Shake the specified fields
       setShakeFields(fieldsToShake);
+
+      // Set error visibility for each field
+      setShowFNameError(fieldsToShake.includes("user_fName"));
+      setShowLNameError(fieldsToShake.includes("user_lName"));
+      setShowEmailError(fieldsToShake.includes("user_email"));
     } else {
       // No errors, proceed with sending email
       props.setTyMessage(`Thank you ${rsvpState.user_fName}!`);
@@ -90,21 +106,26 @@ export default function Rsvp(props) {
         behavior: "smooth",
         duration: 1000,
       });
+      // Reset error visibility after successful submission
+      setShowFNameError(false);
+      setShowLNameError(false);
+      setShowEmailError(false);
     }
+
     e.preventDefault();
   };
 
   return (
     <div
-      method="post"
-      name="rsvp"
-      className=" w-full min-h-screen flex items-center justify-center bg-fixed bg-gradient-to-b from-white to-black"
+      method='post'
+      name='rsvp'
+      className=' w-full min-h-screen flex items-center justify-center bg-fixed bg-gradient-to-b from-white to-black'
     >
       {/* RSVP Form */}
       <form
         ref={form}
         onSubmit={sendEmail}
-        className="max-w-[400px] w-full mx-auto shadow-2xl p-8 rounded-lg"
+        className='max-w-[400px] w-full mx-auto shadow-2xl p-8 rounded-lg'
       >
         <div
           className={`flex flex-col mb-4 ${
@@ -112,14 +133,14 @@ export default function Rsvp(props) {
           }`}
         >
           <input
-            className="bg-gray-200 p-2 rounded-2xl shadow-2xl "
-            type="text"
-            placeholder="First Name"
-            name="user_fName"
+            className='bg-gray-200 p-2 rounded-2xl shadow-2xl '
+            type='text'
+            placeholder='First Name'
+            name='user_fName'
             onChange={onChangeHandler}
           />
-          {touched.user_fName && isValidObj.user_fName.error && (
-            <p className="text-red-700 text-xs font-bold mb-1">
+          {formSubmitted && showFNameError && (
+            <p className='text-red-700 text-xs font-bold mb-1'>
               Field Required
             </p>
           )}
@@ -130,14 +151,14 @@ export default function Rsvp(props) {
           }`}
         >
           <input
-            className="bg-gray-200 p-2 rounded-2xl shadow-2xl "
-            type="text"
-            placeholder="Last Name"
-            name="user_lName"
+            className='bg-gray-200 p-2 rounded-2xl shadow-2xl '
+            type='text'
+            placeholder='Last Name'
+            name='user_lName'
             onChange={onChangeHandler}
           />
-          {touched.user_lName && isValidObj.user_lName.error && (
-            <p className="text-red-700 text-xs font-bold mb-1">
+          {formSubmitted && showLNameError && (
+            <p className='text-red-700 text-xs font-bold mb-1'>
               Field Required
             </p>
           )}
@@ -148,31 +169,31 @@ export default function Rsvp(props) {
           }`}
         >
           <input
-            className="bg-gray-200 p-2 rounded-2xl shadow-2xl"
-            type="email"
-            placeholder="Email"
-            name="user_email"
+            className='bg-gray-200 p-2 rounded-2xl shadow-2xl'
+            type='email'
+            placeholder='Email'
+            name='user_email'
             onChange={onChangeHandler}
           />
-          {touched.user_email && isValidObj.user_email.error && (
-            <p className="text-red-700 text-xs font-bold mb-1">
+          {formSubmitted && showEmailError && (
+            <p className='text-red-700 text-xs font-bold mb-1'>
               Field Required
             </p>
           )}
         </div>
-        <div className="flex flex-col">
+        <div className='flex flex-col'>
           <input
-            className="p-2 rounded-2xl shadow-2xl bg-gray-200"
-            type="text"
-            placeholder="Company Affiliation (Optional)"
-            name="user_affiliation"
+            className='p-2 rounded-2xl shadow-2xl bg-gray-200'
+            type='text'
+            placeholder='Company Affiliation (Optional)'
+            name='user_affiliation'
             onChange={onChangeHandler}
           />
         </div>
 
         <button
-          type="submit"
-          className="w-full py-3 mt-8 bg-black text-white rounded-md"
+          type='submit'
+          className='w-full py-3 mt-8 bg-black text-white rounded-md'
           onClick={handleButtonClick}
         >
           RSVP NOW

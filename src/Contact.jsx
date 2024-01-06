@@ -28,7 +28,7 @@ const Contact = () => {
           <div className='flex flex-col justify-center items-center'>
             <img
               src={AtlasNoBack}
-              alt='/'
+              alt='AtlasNoBack'
               className='w-[150px] h-[150px] sm:w-[200px] sm:h-[200px]'
             />
             <Link to='rsvp' smooth={true} duration={1000}>
@@ -46,7 +46,7 @@ const Contact = () => {
         <div className='flex justify-between items-center flex-wrap mb-4 sm:mb-0'>
           <img
             src={ww}
-            alt='/'
+            alt='wwNoBack'
             className='h-[40px] w-[60px] md:h-[80px] md:w-[120px] sm:mr-4 '
           />
           <img

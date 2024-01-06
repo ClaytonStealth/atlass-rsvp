@@ -1,6 +1,4 @@
 {
-  "homepage": "http://claytonstealth.github.io/atlass-rsvp",
-  "name": "atlass-rsvp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

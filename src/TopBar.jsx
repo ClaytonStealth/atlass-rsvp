@@ -1,5 +1,5 @@
 import React from "react";
-import sportlogo from "../src/assets/sportlogo.png";
+import sportlogo from "./assets/sportlogo.png";
 
 const TopBar = () => {
   return (
